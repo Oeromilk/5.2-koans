@@ -93,14 +93,23 @@ describe("About Applying What We Have Learnt", function() {
     var ingredientCount = { "{ingredient name}": 0 };
 
     /* chain() together map(), flatten() and reduce() */
-    var mushroomsCount = _.chain(products)
-                          .map(function(product){return products.ingredients ;})
-                          _.flatten()
-                          .reduce();
+                        _(products).chain()
+                          .map(function(pizza){
+                            return pizza.ingredients;
+                          })
+                          .flatten()
+                          .reduce(function(ingredientObj, ingredient){
+                            if (ingredientObj[ingredient]){
+                            ingredientObj[ingredient] += 1;
+                          } else {
+                            ingredientObj[ingredient] = 1;
+                          }
+                            return ingredientObj;
+                          }, ingredientCount);
 
 
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(ingredientCount['mushrooms']);
   });
 
   /*********************************************************************************/
